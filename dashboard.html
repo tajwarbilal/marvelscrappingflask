@@ -1,0 +1,78 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Marvel</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+
+            <div class="col-md-4">
+                {% for i in marvel %}
+                  <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{i.image}}" alt="Card image cap" style="height:150px;width:150px;">
+                    <div class="card-body">
+                      <h5 class="card-title">{{i.name}}</h5>
+                      <p class="card-text">{{i.description}}</p>
+                      <a href="#" class="btn btn-primary">{{i.owner_id}}</a>
+                      <a href="/delete/{{i.id}}" class="btn btn-danger">Delete</a>
+                    </div>
+                  </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Welcome, {{ name }} {{id}}</h1>
+
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-4">
+                      </div>
+
+                      <div class="col-md-4">
+                        <form action="/dashboard" method="post">
+                          <div class="form-group">
+                            <label for="name">Add Marvel You Want to enter:</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                          </div>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                      </div>
+
+                      <div class="col-md-4">
+                      </div>
+
+                    </div>
+                  </div>
+
+        </div>
+      </div>
+    </div>
+{% endblock %}
